@@ -10,7 +10,7 @@ public class MinesweeperGame extends Game {
     private static final String  MINE = "\uD83D\uDCA3";
     private static final String FLAG="\uD83D\uDEA9";
     private static final int SIDE = 20;
-    private GameObject[][] gameField = new GameObject[SIDE][SIDE];
+    private final GameObject[][] gameField = new GameObject[SIDE][SIDE];
     private int countMinesOnField;
     private int countFlags;
     private boolean isGameStopped=false;
@@ -26,7 +26,7 @@ public class MinesweeperGame extends Game {
     }//----------------------------------------------------------------------------------------
     private  void openTile(int x, int y){
         GameObject object = gameField[x][y];
-        if (gameField[x][y].isFlag==false&&isGameStopped==false) {
+        if (!gameField[x][y].isFlag && !isGameStopped) {
             countClosedTiles--;
             object.isOpen = true;
             if (object.isMine) {
@@ -54,13 +54,14 @@ public class MinesweeperGame extends Game {
                     setCellColor(x, y, Color.HOTPINK);
                 }
             }
-            if (countMinesOnField==countClosedTiles&&isGameStopped==false){
+            if (countMinesOnField==countClosedTiles&& !isGameStopped){
                 win();
             }
-        } else if (object.isFlag==true){return;}
+        } else if (object.isFlag){
+        }
     }
     private void createGame() {
-        if (isGameStopped==false) {
+        if (!isGameStopped) {
             for (int y = 0; y < SIDE; y++) {
                 for (int x = 0; x < SIDE; x++) {
                     setCellValue(x,y,"");
@@ -110,7 +111,7 @@ public class MinesweeperGame extends Game {
         }
     }
     public void onMouseLeftClick(int x, int y) {
-        if (isGameStopped==true) {
+        if (isGameStopped) {
             restart();
         }
         else{
@@ -121,18 +122,18 @@ public class MinesweeperGame extends Game {
         markTile(x,y);
     }
     private void markTile(int x, int y){
-        if (gameField[x][y].isOpen == false) {//do not remove
-            if (gameField[x][y].isFlag==false&&countFlags==0||isGameStopped == true){
+        if (!gameField[x][y].isOpen) {//do not remove
+            if (!gameField[x][y].isFlag &&countFlags==0|| isGameStopped){
                 return;
             }
             gameField[x][y].isFlag = !gameField[x][y].isFlag;
-            if (gameField[x][y].isFlag == true) {
+            if (gameField[x][y].isFlag) {
                 countFlags--;
                 setCellValue(x, y, FLAG);
                 setCellColor(x, y, Color.BLUE);
                 setScore(score);
             }
-            if (gameField[x][y].isFlag == false) {
+            if (!gameField[x][y].isFlag) {
                 countFlags++;
                 setCellValue(x, y, "");
                 setScore(score);
@@ -140,7 +141,6 @@ public class MinesweeperGame extends Game {
             }
 
         } else {
-            return;
         }
     }
     private void gameOver(){

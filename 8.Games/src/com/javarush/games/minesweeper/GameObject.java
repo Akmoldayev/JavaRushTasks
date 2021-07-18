@@ -1,9 +1,9 @@
 package com.javarush.games.minesweeper;
 
 public class GameObject{
-    public int x;
-    public int y;
-    public boolean isMine;
+    public final int x;
+    public final int y;
+    public final boolean isMine;
     public int countMineNeighbors=0;
     public boolean isOpen=false;
     public boolean isFlag=false;
