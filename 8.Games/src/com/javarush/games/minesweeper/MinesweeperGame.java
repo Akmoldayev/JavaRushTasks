@@ -34,8 +34,11 @@ public class MinesweeperGame extends Game {
                 gameOver();
             }
             if (!object.isMine) {
-                score += 5;
-                setScore(score);
+                if (!object.isClicked) {
+                    score += 5;
+                    setScore(score);
+                    object.isClicked = true;
+                }
                 if (object.countMineNeighbors > 0) {
                     setCellNumber(x, y, object.countMineNeighbors);
                     setCellColor(x, y, Color.HOTPINK);

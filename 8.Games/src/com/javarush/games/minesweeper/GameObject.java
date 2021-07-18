@@ -7,6 +7,7 @@ public class GameObject{
     public int countMineNeighbors=0;
     public boolean isOpen=false;
     public boolean isFlag=false;
+    public boolean isClicked=false;
 
 //    public GameObject(int x, int y, boolean isMine, int countMineNeighbors, boolean isOpen, boolean isFlag) {
 //        this.x = x;
