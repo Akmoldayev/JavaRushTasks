@@ -36,7 +36,9 @@ public class MinesweeperGame extends Game {
             if (!object.isMine) {
                 if (!object.isClicked) {
                     score += 5;
-                    setScore(score);
+                    if (!object.isOpen) {
+                        setScore(score);
+                    }
                     object.isClicked = true;
                 }
                 if (object.countMineNeighbors > 0) {
